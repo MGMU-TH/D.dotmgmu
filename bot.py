@@ -12,7 +12,7 @@ import requests
 # ---------------------------------------------------------
 WEB_APP_URL = "https://script.google.com/macros/s/AKfycby8dOo8WfSDhLR9nO88unOS7IKLWVE_UXeVL_YzBniM7M7UO_tQPRAhcyW38jVLtvpNIQ/exec"
 ROBLOX_GROUP_ID = "144560148"
-BOT_TOKEN = ""
+BOT_TOKEN = " "
 
 # ระบบ Web Server สำหรับรัน 24/7 บน VPS
 app = Flask('')
