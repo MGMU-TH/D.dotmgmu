@@ -1,6 +1,7 @@
 import os
 import json
 import threading
+import time
 from flask import Flask
 import discord
 from discord import app_commands
@@ -8,32 +9,32 @@ from discord.ext import commands
 import requests
 
 # ---------------------------------------------------------
-# การตั้งค่าพื้นฐาน (ฝังค่าให้พร้อมใช้งานทันที)
+# การตั้งค่าพื้นฐาน (ฝังค่าให้พร้อมใช้งานทันที)[span_0](start_span)[span_0](end_span)
 # ---------------------------------------------------------
-WEB_APP_URL = "https://script.google.com/macros/s/AKfycby8dOo8WfSDhLR9nO88unOS7IKLWVE_UXeVL_YzBniM7M7UO_tQPRAhcyW38jVLtvpNIQ/exec"
-ROBLOX_GROUP_ID = "144560148"
-BOT_TOKEN = os.environ.get("DISCORD_TOKEN", "")
+WEB_APP_URL = "https://script.google.com/macros/s/AKfycby8dOo8WfSDhLR9nO88unOS7IKLWVE_UXeVL_YzBniM7M7UO_tQPRAhcyW38jVLtvpNIQ/exec[span_1](start_span)"[span_1](end_span)
+ROBLOX_GROUP_ID = "144560148[span_2](start_span)"[span_2](end_span)
+BOT_TOKEN = "MTU1OTE0NzM4MTg0MzI5NjMxOA.GeGNa1.rUJJ32AXDNmbjd4WKzUppOcVr6Fd3EFM0Ku9zk[span_3](start_span)"[span_3](end_span)
 
-# ระบบ Web Server สำหรับรัน 24/7 บน VPS
-app = Flask('')
+# ระบบ Web Server สำหรับรัน 24/7 บน VPS[span_4](start_span)[span_4](end_span)
+app = Flask('')[span_5](start_span)[span_5](end_span)
 
 @app.route('/')
 def home():
-    return "SYSTEM ONLINE: Discord Bot & Google Sheets API"
+    return "SYSTEM ONLINE: Discord Bot & Google Sheets API[span_6](start_span)"[span_6](end_span)
 
 def run_web_server():
-    port = int(os.environ.get("PORT", 8080))
-    app.run(host='0.0.0.0', port=port)
+    port = int(os.environ.get("PORT", 8080))[span_7](start_span)[span_7](end_span)
+    app.run(host='0.0.0.0', port=port)[span_8](start_span)[span_8](end_span)
 
 def keep_alive():
-    t = threading.Thread(target=run_web_server)
-    t.start()
+    t = threading.Thread(target=run_web_server)[span_9](start_span)[span_9](end_span)
+    t.start()[span_10](start_span)[span_10](end_span)
 
-intents = discord.Intents.default()
-intents.message_content = True
-bot = commands.Bot(command_prefix="!", intents=intents)
+intents = discord.Intents.default()[span_11](start_span)[span_11](end_span)
+intents.message_content = True[span_12](start_span)[span_12](end_span)
+bot = commands.Bot(command_prefix="!", intents=intents)[span_13](start_span)[span_13](end_span)
 
-# --- ฟังก์ชันช่วยติดต่อ Google Sheets API ---
+# --- ฟังก์ชันช่วยติดต่อ Google Sheets API ---[span_14](start_span)[span_14](end_span)
 def call_api(action: str, payload: dict = None):
     try:
         if payload is None:
@@ -59,7 +60,7 @@ def set_config(key: str, value: str, description: str = ""):
     return call_api("set_config", {"key": key, "value": str(value), "description": description})
 
 # =========================================================
-# 9 ฟังก์ชันหลักของระบบ
+# 9 ฟังก์ชันหลักของระบบ[span_15](start_span)[span_15](end_span)
 # =========================================================
 
 @bot.event
@@ -71,7 +72,7 @@ async def on_ready():
     except Exception as e:
         print(f"❌ Sync Error: {e}")
 
-# 1. ยืนยันตัวตน (Roblox Group Link)
+# 1. ยืนยันตัวตน (Roblox Group Link)[span_16](start_span)[span_16](end_span)
 @bot.tree.command(name="verify", description="ยืนยันตัวตนเชื่อมโยงกับกลุ่ม Roblox")
 async def verify(interaction: discord.Interaction, roblox_username: str):
     await interaction.response.defer(ephemeral=True)
@@ -82,7 +83,7 @@ async def verify(interaction: discord.Interaction, roblox_username: str):
     else:
         await interaction.followup.send("❌ เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล", ephemeral=True)
 
-# 2. ระบบประกาศ
+# 2. ระบบประกาศ[span_17](start_span)[span_17](end_span)
 @bot.tree.command(name="announce", description="ส่งประกาศข้อความไปยังห้องที่กำหนด")
 @app_commands.checks.has_permissions(administrator=True)
 async def announce(interaction: discord.Interaction, channel: discord.TextChannel, message: str, image_url: str = None):
@@ -93,7 +94,7 @@ async def announce(interaction: discord.Interaction, channel: discord.TextChanne
     await channel.send(embed=embed)
     await interaction.followup.send("✅ ส่งประกาศเรียบร้อย", ephemeral=True)
 
-# 3. ระบบตั๋ว (Ticket Setup)
+# 3. ระบบตั๋ว (Ticket Setup)[span_18](start_span)[span_18](end_span)
 class TicketView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None)
@@ -113,14 +114,14 @@ async def setup_ticket(interaction: discord.Interaction):
     await interaction.channel.send(embed=embed, view=TicketView())
     await interaction.response.send_message("✅ สร้างแผงตั๋วเรียบร้อย", ephemeral=True)
 
-# 4. รายงานข้อผิดพลาดอัตโนมัติ
+# 4. รายงานข้อผิดพลาดอัตโนมัติ[span_19](start_span)[span_19](end_span)
 @bot.tree.command(name="set_bug_channel", description="กำหนดช่องรับรายงานข้อผิดพลาดจากเกม Roblox")
 @app_commands.checks.has_permissions(administrator=True)
 async def set_bug_channel(interaction: discord.Interaction, channel: discord.TextChannel):
     set_config("bug_report_channel_id", str(channel.id), "ช่องรายงานบั๊กจากเกม")
     await interaction.response.send_message(f"✅ บันทึกช่องรับรายงานข้อผิดพลาด: {channel.mention} เรียบร้อย", ephemeral=True)
 
-# 5. ระบบยืม-คืนหนังสือ
+# 5. ระบบยืม-คืนหนังสือ[span_20](start_span)[span_20](end_span)
 class LibraryView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None)
@@ -146,22 +147,22 @@ async def setup_library(interaction: discord.Interaction):
     await interaction.channel.send(embed=embed, view=LibraryView())
     await interaction.response.send_message("✅ สร้างแผงควบคุมห้องสมุดเรียบร้อย", ephemeral=True)
 
-# 6. เช็คความหน่วง (Ping)
+# 6. เช็คความหน่วง (Ping)[span_21](start_span)[span_21](end_span)
 @bot.tree.command(name="ping", description="ตรวจสอบความเร็วการตอบสนองของระบบ")
 async def ping(interaction: discord.Interaction):
     latency = round(bot.latency * 1000)
     await interaction.response.send_message(f"⏱️ **ความเร็วระบบ:** `{latency} ms`", ephemeral=True)
 
-# 7. ระบบสำรองข้อมูลด้วยรหัสผ่าน
+# 7. ระบบสำรองข้อมูลด้วยรหัสผ่าน[span_22](start_span)[span_22](end_span)
 @bot.tree.command(name="backup_system", description="สำรองข้อมูลโครงสร้างเซิร์ฟเวอร์")
 @app_commands.checks.has_permissions(administrator=True)
 async def backup_system(interaction: discord.Interaction, password: str):
-    if password != "admin1234":  # ตั้งรหัสผ่านสำรองไว้ที่นี่
+    if password != "admin1234":  # ตั้งรหัสผ่านสำรองไว้ที่นี่[span_23](start_span)[span_23](end_span)
         await interaction.response.send_message("❌ รหัสผ่านไม่ถูกต้อง", ephemeral=True)
         return
     await interaction.response.send_message("💾 สำรองข้อมูลระบบเรียบร้อย", ephemeral=True)
 
-# 8. ระบบสมัครเรียน
+# 8. ระบบสมัครเรียน[span_24](start_span)[span_24](end_span)
 class AdmissionModal(discord.ui.Modal, title="แบบฟอร์มสมัครเข้าศึกษา"):
     roblox_name = discord.ui.TextInput(label="ชื่อผู้ใช้ Roblox", placeholder="ระบุชื่อ Roblox ของคุณ")
     age = discord.ui.TextInput(label="อายุ", placeholder="ระบุอายุของคุณ")
@@ -180,7 +181,7 @@ class AdmissionModal(discord.ui.Modal, title="แบบฟอร์มสมั�
         }
         call_api("submit_application", payload)
         
-        # ส่งไปห้องแอดมิน (ถ้าตั้งค่าไว้)
+        # ส่งไปห้องแอดมิน (ถ้าตั้งค่าไว้)[span_25](start_span)[span_25](end_span)
         admin_channel_id = get_config("admission_channel_id")
         if admin_channel_id:
             channel = bot.get_channel(int(admin_channel_id))
@@ -216,12 +217,12 @@ async def setup_admission(interaction: discord.Interaction, receive_channel: dis
     await interaction.channel.send(embed=embed, view=AdmissionView())
     await interaction.response.send_message("✅ สร้างแผงระบบสมัครเรียนเรียบร้อย", ephemeral=True)
 
-# 9. ระบบจัดยศอัตโนมัติตามกลุ่ม Roblox
+# 9. ระบบจัดยศอัตโนมัติตามกลุ่ม Roblox[span_26](start_span)[span_26](end_span)
 @bot.tree.command(name="setup_roles", description="ซิงค์และสร้างบทบาทตามกลุ่ม Roblox (ID: 144560148)")
 @app_commands.checks.has_permissions(administrator=True)
 async def setup_roles(interaction: discord.Interaction):
     await interaction.response.defer(ephemeral=True)
-    # จำลองการสร้างยศพื้นฐานจากระบบกลุ่ม
+    # จำลองการสร้างยศพื้นฐานจากระบบกลุ่ม[span_27](start_span)[span_27](end_span)
     guild = interaction.guild
     roles_to_create = ["Student", "Staff", "Discipline Officer"]
     for r_name in roles_to_create:
@@ -231,8 +232,22 @@ async def setup_roles(interaction: discord.Interaction):
     await interaction.followup.send(f"✅ ซิงค์บทบาทตามกลุ่ม Roblox (ID: {ROBLOX_GROUP_ID}) เรียบร้อย", ephemeral=True)
 
 # ---------------------------------------------------------
-# รันระบบ
+# รันระบบ (เพิ่มระบบป้องกัน Rate Limit 429 แบบวนลูป)
 # ---------------------------------------------------------
 if __name__ == "__main__":
     keep_alive()
-    bot.run(BOT_TOKEN)
+    
+    while True:
+        try:
+            print("🔄 Attempting to connect to Discord Gateway...")
+            bot.run(BOT_TOKEN)
+        except discord.errors.HTTPException as e:
+            if e.status == 429:
+                print("⚠️ [Rate Limited] ติดข้อจำกัด 429 Too Many Requests จาก Discord! กำลังพักรอ 90 วินาทีก่อนลองใหม่...")
+                time.sleep(90)
+            else:
+                print(f"⚠️ Discord HTTPException เกิดขึ้น: {e}")
+                time.sleep(15)
+        except Exception as e:
+            print(f"❌ เกิดข้อผิดพลาดทั่วไป: {e}")
+            time.sleep(15)
